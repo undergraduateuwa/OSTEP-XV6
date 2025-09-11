@@ -80,3 +80,18 @@ kalloc(void)
     memset((char*)r, 5, PGSIZE); // fill with junk
   return (void*)r;
 }
+
+// getting the number of available bytes on memory.
+
+uint64
+memofree(void)
+{
+  struct run *r;
+  int n = 0;
+  acquire(&kmem.lock);
+  for(r = kmem.freelist; r; r = r->next)
+    n++;
+  release(&kmem.lock);
+  return (uint64)n * PGSIZE;
+}
+

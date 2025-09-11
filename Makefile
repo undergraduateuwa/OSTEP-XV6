@@ -148,6 +148,7 @@ UPROGS=\
 	$U/_find\
 	$U/_xargs\
 	$U/_primes\
+	$U/_memoleft\
 
 
 fs.img: mkfs/mkfs README $(UPROGS)

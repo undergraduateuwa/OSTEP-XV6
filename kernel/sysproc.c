@@ -7,6 +7,9 @@
 #include "proc.h"
 #include "vm.h"
 
+extern uint64 memofree(void);
+
+
 uint64
 sys_exit(void)
 {
@@ -104,4 +107,11 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+// return how many bytes available on memory
+uint64
+sys_memoleft(void)
+{
+  return memofree();
 }
