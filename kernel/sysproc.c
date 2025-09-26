@@ -6,6 +6,7 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "vm.h"
+#include "sysinfo.h"
 
 extern uint64 memofree(void);
 
@@ -114,4 +115,35 @@ uint64
 sys_memoleft(void)
 {
   return memofree();
+}
+
+//trace the usage of each system call of current process
+//since start
+
+void sys_calltrace(){
+  struct proc *p = myproc();
+  int mask;
+  argint(0,&mask);
+  p->tracemark = mask;
+}
+
+// collects information about the running system
+
+uint64
+sys_info(void)
+{
+    uint64 addr;
+    struct proc* p;
+    struct sysinfo info ;
+    argaddr(0,&addr);
+    p = myproc();
+
+    info.freemem = memofree();
+    info.nproc = n_proc();
+
+    if(copyout(p->pagetable,addr,(char*)&info,sizeof(info))){
+      return -1;
+    }
+    return 0;
+
 }

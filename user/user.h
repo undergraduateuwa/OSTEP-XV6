@@ -2,6 +2,14 @@
 
 struct stat;
 
+ struct sysinfo{
+    int freemem;
+    int nproc;
+ };
+
+ struct sysinfo;
+
+
 // system calls
 int fork(void);
 int exit(int) __attribute__((noreturn));
@@ -25,6 +33,8 @@ char* sys_sbrk(int,int);
 int pause(int);
 int uptime(void);
 int memoleft(void);
+int calltrace(int);
+int info(struct sysinfo *);
 
 // ulib.c
 int stat(const char*, struct stat*);

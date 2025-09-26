@@ -149,6 +149,8 @@ UPROGS=\
 	$U/_xargs\
 	$U/_primes\
 	$U/_memoleft\
+	$U/_trace\
+	$U/_sysinfo\
 
 
 fs.img: mkfs/mkfs README $(UPROGS)
